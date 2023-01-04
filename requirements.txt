@@ -3,6 +3,7 @@ Flask
 pymongo
 dnspython
 youtube-dl
+python-dotenv
 FFmpeg
 craiyon.py
 PyNaCl
