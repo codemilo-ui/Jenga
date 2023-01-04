@@ -8,7 +8,7 @@ from discord.ext import commands
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.all()
-bot = commands.Bot(intents=intents, help_command=None)
+bot = commands.Bot(command_prefix="..",intents=intents)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
