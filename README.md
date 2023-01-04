@@ -1,2 +1,2 @@
 # Jenga
-A multipurpose discord bot made in pycord-3 
+A multipurpose discord bot made in pycord

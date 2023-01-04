@@ -1,0 +1,9 @@
+py-cord
+Flask
+pymongo
+dnspython
+youtube-dl
+FFmpeg
+craiyon.py
+PyNaCl
+Pillow
