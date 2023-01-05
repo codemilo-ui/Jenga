@@ -321,7 +321,7 @@ class Music(commands.Cog):
             return await ctx.respond('Not connected to any voice channel.')
 
         await ctx.voice_state.stop()
-        embed = discord.Embed(title="Success ✅", description='**Stopped playing **```css\n{0.source.title}\n```'.format(self))
+        embed = discord.Embed(title="Success ✅", description='**Stopped playing**')
         await ctx.respond(embed=embed)
         del self.voice_states[ctx.guild.id]
 
@@ -460,7 +460,6 @@ class Music(commands.Cog):
             
             
              
-        await ctx.respond("Searching...🔍", delete_after=5)
         try:
             source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
         except YTDLError as e:
