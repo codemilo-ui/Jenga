@@ -312,16 +312,16 @@ class Music(commands.Cog):
 
         ctx.voice_state.voice = await destination.connect()
 
-    @slash_command(name='leave', aliases=['disconnect'])
+    @slash_command(name='stop', aliases=['disconnect'])
     @commands.has_permissions(manage_guild=True)
-    async def _leave(self, ctx: commands.Context):
-        """Clears the queue and leaves the voice channel."""
+    async def _stop(self, ctx: commands.Context):
+        """Stops playing song and clears the queue."""
 
         if not ctx.voice_state.voice:
             return await ctx.respond('Not connected to any voice channel.')
 
         await ctx.voice_state.stop()
-        embed = discord.Embed(title="Left voice channel ✅")
+        embed = discord.Embed(title="Success ✅", description='**Stopped playing **```css\n{0.source.title}\n```'.format(self))
         await ctx.respond(embed=embed)
         del self.voice_states[ctx.guild.id]
 
@@ -330,10 +330,10 @@ class Music(commands.Cog):
         """Sets the volume of the player."""
 
         if not ctx.voice_state.is_playing:
-            return await ctx.send('Nothing being played at the moment.')
+            return await ctx.respond('Nothing being played at the moment.')
 
         if 0 > volume > 100:
-            return await ctx.send('Volume must be between 0 and 100')
+            return await ctx.respond('Volume must be between 0 and 100')
 
         ctx.voice_state.volume = volume / 100
         await ctx.respond('Volume of the player set to {}%'.format(volume))
@@ -350,7 +350,8 @@ class Music(commands.Cog):
 
         if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_playing():
             ctx.voice_state.voice.pause()
-            await ctx.respond('⏯ Paused')
+            embed = discord.Embed(title="Success ✅", description="**Paused the song!**")
+            await ctx.respond(embed=embed)
 
     @slash_command(name='resume')
     async def _resume(self, ctx: commands.Context):
@@ -358,17 +359,8 @@ class Music(commands.Cog):
 
         if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
             ctx.voice_state.voice.resume()
-            await ctx.respond('⏯ Resumed')
-
-    @slash_command(name='stop')
-    async def _stop(self, ctx: commands.Context):
-        """Stops playing song and clears the queue."""
-
-        ctx.voice_state.songs.clear()
-
-        if not ctx.voice_state.is_playing:
-            ctx.voice_state.stop()
-            await ctx.respond('⏹ Stopped')
+            embed = discord.Embed(title="Success ✅", description="**Resumed the song!**")
+            await ctx.respond(embed=embed)
 
     @slash_command(name='skip')
     async def _skip(self, ctx: commands.Context):
@@ -468,7 +460,7 @@ class Music(commands.Cog):
             
             
              
-        await ctx.respond("Searching...🔍")
+        await ctx.respond("Searching...🔍", delete_after=5)
         try:
             source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
         except YTDLError as e:
