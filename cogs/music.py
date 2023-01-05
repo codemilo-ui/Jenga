@@ -318,9 +318,10 @@ class Music(commands.Cog):
         """Clears the queue and leaves the voice channel."""
 
         if not ctx.voice_state.voice:
-            return await ctx.send('Not connected to any voice channel.')
+            return await ctx.respond('Not connected to any voice channel.')
 
         await ctx.voice_state.stop()
+        await ctx.respond("Stopped")
         del self.voice_states[ctx.guild.id]
 
     @slash_command(name='volume')
