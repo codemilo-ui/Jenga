@@ -29,7 +29,7 @@ async def ch_pr():
     await bot.wait_until_ready()
 
     statuses = [f"on {len(bot.guilds)} servers",
-                "Slash commands | watchdog-bot.tk"]
+                "you"]
 
     while not bot.is_closed():
 
