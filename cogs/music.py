@@ -459,7 +459,7 @@ class Music(commands.Cog):
             
             
             
-             
+        await ctx.defer()     
         try:
             source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
         except YTDLError as e:
