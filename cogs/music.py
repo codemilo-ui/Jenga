@@ -321,7 +321,8 @@ class Music(commands.Cog):
             return await ctx.respond('Not connected to any voice channel.')
 
         await ctx.voice_state.stop()
-        await ctx.respond("Stopped")
+        embed = discord.Embed(title="Left voice channel ✅")
+        await ctx.respond(embed=embed)
         del self.voice_states[ctx.guild.id]
 
     @slash_command(name='volume')
@@ -366,7 +367,7 @@ class Music(commands.Cog):
         ctx.voice_state.songs.clear()
 
         if not ctx.voice_state.is_playing:
-            ctx.voice_state.voice.stop()
+            ctx.voice_state.stop()
             await ctx.respond('⏹ Stopped')
 
     @slash_command(name='skip')
